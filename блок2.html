@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Демографические данные</title>
+<style>
+* { box-sizing: border-box; }
+body {
+font-family: Arial, sans-serif;
+background: #f3f5f7;
+margin:0;
+padding:10px;
+font-size:16px;
+}
+.container {
+max-width: 900px;
+margin:0 auto;
+background:#ffffff;
+padding:20px;
+box-shadow:0 0 8px rgba(0,0,0,0.1);
+min-height:100vh;
+}
+.top-bar {
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+flex-wrap:wrap;
+gap:10px;
+}
+.btn-back {
+padding:8px 16px;
+background:#e0e0e0;
+border-radius:4px;
+cursor:pointer;
+font-size:14px;
+border:none;
+min-width:100px;
+}
+h1 {
+font-size:clamp(18px, 4vw, 22px);
+margin:10px 0 20px;
+line-height:1.3;
+}
+
+.question-block {
+margin-bottom:24px;
+padding-bottom:16px;
+border-bottom:1px solid #eee;
+}
+.question-text {
+margin-bottom:12px;
+font-weight:bold;
+font-size:16px;
+line-height:1.4;
+}
+
+.options {
+display:flex;
+flex-direction:column;
+gap:8px;
+padding:0;
+}
+.options label {
+display:flex;
+align-items:center;
+padding:12px 16px;
+border:2px solid #c0c0c0;
+border-radius:6px;
+cursor:pointer;
+background:#f8f9fa;
+font-size:15px;
+transition:all 0.2s ease;
+min-height:20px;
+}
+.options label:hover {
+background:#e8f4fd;
+border-color:#2196f3;
+}
+.options input[type="radio"] {
+position:absolute;
+opacity:0;
+pointer-events:none;
+}
+.checkbox-custom {
+width:20px;
+height:20px;
+border:2px solid #c0c0c0;
+border-radius:3px;
+margin-right:12px;
+flex-shrink:0;
+background:#fff;
+position:relative;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+.checkbox-custom::after {
+content:'✓';
+font-size:12px;
+font-weight:bold;
+color:#fff;
+display:none;
+}
+input[type="radio"]:checked + span .checkbox-custom {
+background:#4caf50 !important;
+border-color:#388e3c !important;
+}
+input[type="radio"]:checked + span .checkbox-custom::after {
+display:block;
+}
+.options span {
+display:flex;
+align-items:center;
+width:100%;
+padding-left:4px;
+}
+
+.input-field {
+width:100%;
+padding:14px 16px;
+border:2px solid #c0c0c0;
+border-radius:6px;
+font-size:16px;
+transition:border-color 0.2s ease;
+}
+.input-field:focus {
+outline:none;
+border-color:#4caf50;
+box-shadow:0 0 0 3px rgba(76,175,80,0.1);
+}
+.input-field:invalid {
+border-color:#f44336;
+}
+
+.center {
+text-align:center;
+margin:30px 0 20px;
+padding:20px 0;
+}
+.btn-next {
+padding:14px 40px;
+background:#4caf50;
+color:#ffffff;
+border-radius:6px;
+border:none;
+font-size:16px;
+cursor:pointer;
+min-width:220px;
+transition: background 0.2s ease;
+}
+.btn-next:hover:not(:disabled) {
+background:#388e3c;
+}
+.btn-next:disabled {
+background:#ccc;
+cursor:not-allowed;
+}
+
+/* Мобильные адаптации */
+@media (max-width: 600px) {
+body { padding:5px; }
+.container { padding:15px; margin:0; border-radius:0; box-shadow:none; min-height:100vh; }
+.top-bar { justify-content:center; }
+.options label { padding:12px; font-size:16px; }
+.question-text { font-size:18px; }
+h1 { font-size:20px; text-align:center; }
+}
+
+@media (min-width: 601px) {
+.options { flex-direction:row; flex-wrap:wrap; }
+.options label {
+flex:1 1 calc(50% - 4px);
+max-width: calc(50% - 4px);
+}
+.options label:nth-child(odd) { margin-right:8px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+<div class="top-bar">
+<button class="btn-back" onclick="history.back()">НАЗАД</button>
+<div></div>
+</div>
+
+<form id="demoForm">
+<!-- 1. Возраст -->
+<div class="question-block">
+<div class="question-text">1. Сколько Вам полных лет?</div>
+<input type="number" class="input-field" name="age" min="16" max="100" required placeholder="Введите возраст">
+</div>
+
+<!-- 2. Пол -->
+<div class="question-block">
+<div class="question-text">2. Пол:</div>
+<div class="options">
+<label><input type="radio" name="gender" value="Мужской" required><span><div class="checkbox-custom"></div>Мужской</span></label>
+<label><input type="radio" name="gender" value="Женский" required><span><div class="checkbox-custom"></div>Женский</span></label>
+</div>
+</div>
+
+<!-- 3. Образование -->
+<div class="question-block">
+<div class="question-text">3. Укажите уровень образования:</div>
+<div class="options">
+<label><input type="radio" name="education" value="неоконченное среднее" required><span><div class="checkbox-custom"></div>неоконченное среднее</span></label>
+<label><input type="radio" name="education" value="основное общее (9 классов)" required><span><div class="checkbox-custom"></div>основное общее (9 классов)</span></label>
+<label><input type="radio" name="education" value="среднее общее (11 классов)" required><span><div class="checkbox-custom"></div>среднее общее (11 классов)</span></label>
+<label><input type="radio" name="education" value="среднее профессиональное (колледж/техникум/училище)" required><span><div class="checkbox-custom"></div>среднее профессиональное (колледж/техникум/училище)</span></label>
+<label><input type="radio" name="education" value="высшее (бакалавр/специалист/магистр)" required><span><div class="checkbox-custom"></div>высшее (бакалавр/специалист/магистр)</span></label>
+<label><input type="radio" name="education" value="ученая степень" required><span><div class="checkbox-custom"></div>ученая степень</span></label>
+</div>
+</div>
+
+<!-- 4. Профессия -->
+<div class="question-block">
+<div class="question-text">4. Укажите Вашу профессию (по специализации или образованию):</div>
+<input type="text" class="input-field" name="profession" required placeholder="Введите профессию">
+</div>
+
+<!-- 5. Должность -->
+<div class="question-block">
+<div class="question-text">5. Укажите Вашу текущую должность (Ваша позиция в организации):</div>
+<input type="text" class="input-field" name="position" required placeholder="Введите должность">
+</div>
+
+<!-- 6. Общий стаж -->
+<div class="question-block">
+<div class="question-text">6. Укажите общий трудовой стаж:</div>
+<div class="options">
+<label><input type="radio" name="total_exp" value="Менее 3 лет" required><span><div class="checkbox-custom"></div>Менее 3 лет</span></label>
+<label><input type="radio" name="total_exp" value="3–10 лет" required><span><div class="checkbox-custom"></div>3–10 лет</span></label>
+<label><input type="radio" name="total_exp" value="11–20 лет" required><span><div class="checkbox-custom"></div>11–20 лет</span></label>
+<label><input type="radio" name="total_exp" value="Более 20 лет" required><span><div class="checkbox-custom"></div>Более 20 лет</span></label>
+</div>
+</div>
+
+<!-- 7. Стаж в организации -->
+<div class="question-block">
+<div class="question-text">7. Укажите стаж работы в текущей организации:</div>
+<div class="options">
+<label><input type="radio" name="org_exp" value="Менее 3 лет" required><span><div class="checkbox-custom"></div>Менее 3 лет</span></label>
+<label><input type="radio" name="org_exp" value="3–10 лет" required><span><div class="checkbox-custom"></div>3–10 лет</span></label>
+<label><input type="radio" name="org_exp" value="11–20 лет" required><span><div class="checkbox-custom"></div>11–20 лет</span></label>
+<label><input type="radio" name="org_exp" value="Более 20 лет" required><span><div class="checkbox-custom"></div>Более 20 лет</span></label>
+</div>
+</div>
+
+<!-- 8. Сфера деятельности -->
+<div class="question-block">
+<div class="question-text">8. Укажите сферу деятельности компании:</div>
+<input type="text" class="input-field" name="industry" required placeholder="Введите сферу деятельности">
+</div>
+
+<!-- 9. Размер коллектива -->
+<div class="question-block">
+<div class="question-text">9. Размер коллектива в вашем отделе:</div>
+<div class="options">
+<label><input type="radio" name="team_size" value="До 10 чел." required><span><div class="checkbox-custom"></div>До 10 чел.</span></label>
+<label><input type="radio" name="team_size" value="11–50 чел." required><span><div class="checkbox-custom"></div>11–50 чел.</span></label>
+<label><input type="radio" name="team_size" value="51–200 чел." required><span><div class="checkbox-custom"></div>51–200 чел.</span></label>
+<label><input type="radio" name="team_size" value="Более 200 чел." required><span><div class="checkbox-custom"></div>Более 200 чел.</span></label>
+</div>
+</div>
+
+<div class="center">
+<button type="button" class="btn-next" id="nextBtn" onclick="onNext()">ПРОДОЛЖИТЬ</button>
+</div>
+</form>
+</div>
+
+<script>
+function onNext() {
+const form = document.getElementById('demoForm');
+const btn = document.getElementById('nextBtn');
+
+if (form.checkValidity()) {
+const formData = new FormData(form);
+const data = Object.fromEntries(formData);
+localStorage.setItem('demoData', JSON.stringify(data));
+
+btn.disabled = true;
+btn.textContent = 'Переходим...';
+
+setTimeout(() => {
+window.location.href = 'блок3.html';
+}, 500);
+} else {
+alert('Пожалуйста, заполните все обязательные поля');
+form.reportValidity();
+}
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+document.querySelector('input[name="age"]').focus();
+});
+</script>
+
+</body>
+</html>

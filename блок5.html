@@ -1,0 +1,228 @@
+<div class="survey-box">
+
+<div class="instructions">
+<b>Выберите цифру, которая лучше всего отражает степень Вашего согласия или несогласия с каждым утверждением</b>
+<br><br>
+1 – полностью не согласен<br>
+2 – не согласен<br>
+3 – скорее не согласен<br>
+4 – нечто среднее<br>
+5 – скорее согласен<br>
+6 – согласен<br>
+7 – полностью согласен
+</div>
+
+<style>
+.survey-box{
+max-width:900px;
+margin:30px auto;
+padding:25px 35px;
+border:2px solid #ccc;
+border-radius:8px;
+background:#fff;
+box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+font-family:Arial, sans-serif;
+}
+
+.instructions{
+line-height:1.6;
+text-align:left;
+margin-bottom:35px;
+}
+
+.scale-question{
+margin-top:30px;
+text-align:left; /* выравнивание вопросов по левому краю */
+}
+
+.scale{
+margin-top:20px;
+text-align:center; /* шкала по центру */
+}
+
+.scale-grid{
+display:grid;
+grid-template-columns:repeat(7,1fr);
+text-align:center;
+position:relative;
+margin-top:25px;
+}
+
+.scale-line{
+position:absolute;
+top:14px;
+left:0;
+right:0;
+height:4px;
+background:#ccc;
+z-index:1;
+}
+
+.scale-grid input{
+display:none;
+}
+
+.circle{
+width:24px;
+height:24px;
+border-radius:50%;
+border:3px solid #2d6cdf;
+background:white;
+cursor:pointer;
+margin:auto;
+position:relative;
+z-index:2;
+}
+
+.scale-grid input:checked + .circle{
+background:#2d6cdf;
+}
+
+.scale-number{
+font-weight:bold;
+margin-top:10px;
+}
+
+.scale-label{
+font-size:12px;
+margin-top:4px;
+padding:0 3px;
+}
+
+.btn-blue{
+display:block;
+margin:35px auto 0 auto;
+background:#2d6cdf;
+color:white;
+border:none;
+padding:12px 35px;
+font-size:16px;
+border-radius:6px;
+cursor:pointer;
+}
+
+@media (max-width:600px){
+.scale-grid{
+grid-template-columns:repeat(7,1fr);
+}
+}
+</style>
+
+<!-- 45 -->
+<div class="scale-question">
+<b>45. В целом моя жизнь близка к идеалу.</b>
+<div class="scale">
+<div class="scale-grid">
+<div class="scale-line"></div>
+<label><input type="radio" name="q45"><div class="circle"></div><div class="scale-number">1</div><div class="scale-label">полностью не согласен</div></label>
+<label><input type="radio" name="q45"><div class="circle"></div><div class="scale-number">2</div><div class="scale-label">не согласен</div></label>
+<label><input type="radio" name="q45"><div class="circle"></div><div class="scale-number">3</div><div class="scale-label">скорее не согласен</div></label>
+<label><input type="radio" name="q45"><div class="circle"></div><div class="scale-number">4</div><div class="scale-label">нечто среднее</div></label>
+<label><input type="radio" name="q45"><div class="circle"></div><div class="scale-number">5</div><div class="scale-label">скорее согласен</div></label>
+<label><input type="radio" name="q45"><div class="circle"></div><div class="scale-number">6</div><div class="scale-label">согласен</div></label>
+<label><input type="radio" name="q45"><div class="circle"></div><div class="scale-number">7</div><div class="scale-label">полностью согласен</div></label>
+</div>
+</div>
+</div>
+
+<!-- 46 -->
+<div class="scale-question">
+<b>46. Условия моей жизни прекрасные.</b>
+<div class="scale">
+<div class="scale-grid">
+<div class="scale-line"></div>
+<label><input type="radio" name="q46"><div class="circle"></div><div class="scale-number">1</div><div class="scale-label">полностью не согласен</div></label>
+<label><input type="radio" name="q46"><div class="circle"></div><div class="scale-number">2</div><div class="scale-label">не согласен</div></label>
+<label><input type="radio" name="q46"><div class="circle"></div><div class="scale-number">3</div><div class="scale-label">скорее не согласен</div></label>
+<label><input type="radio" name="q46"><div class="circle"></div><div class="scale-number">4</div><div class="scale-label">нечто среднее</div></label>
+<label><input type="radio" name="q46"><div class="circle"></div><div class="scale-number">5</div><div class="scale-label">скорее согласен</div></label>
+<label><input type="radio" name="q46"><div class="circle"></div><div class="scale-number">6</div><div class="scale-label">согласен</div></label>
+<label><input type="radio" name="q46"><div class="circle"></div><div class="scale-number">7</div><div class="scale-label">полностью согласен</div></label>
+</div>
+</div>
+</div>
+
+<!-- 47 -->
+<div class="scale-question">
+<b>47. Я удовлетворен жизнью.</b>
+<div class="scale">
+<div class="scale-grid">
+<div class="scale-line"></div>
+<label><input type="radio" name="q47"><div class="circle"></div><div class="scale-number">1</div><div class="scale-label">полностью не согласен</div></label>
+<label><input type="radio" name="q47"><div class="circle"></div><div class="scale-number">2</div><div class="scale-label">не согласен</div></label>
+<label><input type="radio" name="q47"><div class="circle"></div><div class="scale-number">3</div><div class="scale-label">скорее не согласен</div></label>
+<label><input type="radio" name="q47"><div class="circle"></div><div class="scale-number">4</div><div class="scale-label">нечто среднее</div></label>
+<label><input type="radio" name="q47"><div class="circle"></div><div class="scale-number">5</div><div class="scale-label">скорее согласен</div></label>
+<label><input type="radio" name="q47"><div class="circle"></div><div class="scale-number">6</div><div class="scale-label">согласен</div></label>
+<label><input type="radio" name="q47"><div class="circle"></div><div class="scale-number">7</div><div class="scale-label">полностью согласен</div></label>
+</div>
+</div>
+</div>
+
+<!-- 48 -->
+<div class="scale-question">
+<b>48. К настоящему моменту я уже получил от жизни всё, чего хотел.</b>
+<div class="scale">
+<div class="scale-grid">
+<div class="scale-line"></div>
+<label><input type="radio" name="q48"><div class="circle"></div><div class="scale-number">1</div><div class="scale-label">полностью не согласен</div></label>
+<label><input type="radio" name="q48"><div class="circle"></div><div class="scale-number">2</div><div class="scale-label">не согласен</div></label>
+<label><input type="radio" name="q48"><div class="circle"></div><div class="scale-number">3</div><div class="scale-label">скорее не согласен</div></label>
+<label><input type="radio" name="q48"><div class="circle"></div><div class="scale-number">4</div><div class="scale-label">нечто среднее</div></label>
+<label><input type="radio" name="q48"><div class="circle"></div><div class="scale-number">5</div><div class="scale-label">скорее согласен</div></label>
+<label><input type="radio" name="q48"><div class="circle"></div><div class="scale-number">6</div><div class="scale-label">согласен</div></label>
+<label><input type="radio" name="q48"><div class="circle"></div><div class="scale-number">7</div><div class="scale-label">полностью согласен</div></label>
+</div>
+</div>
+</div>
+
+<!-- 49 -->
+<div class="scale-question">
+<b>49. Если я мог прожить жизнь заново, то не изменил бы почти ничего.</b>
+<div class="scale">
+<div class="scale-grid">
+<div class="scale-line"></div>
+<label><input type="radio" name="q49"><div class="circle"></div><div class="scale-number">1</div><div class="scale-label">полностью не согласен</div></label>
+<label><input type="radio" name="q49"><div class="circle"></div><div class="scale-number">2</div><div class="scale-label">не согласен</div></label>
+<label><input type="radio" name="q49"><div class="circle"></div><div class="scale-number">3</div><div class="scale-label">скорее не согласен</div></label>
+<label><input type="radio" name="q49"><div class="circle"></div><div class="scale-number">4</div><div class="scale-label">нечто среднее</div></label>
+<label><input type="radio" name="q49"><div class="circle"></div><div class="scale-number">5</div><div class="scale-label">скорее согласен</div></label>
+<label><input type="radio" name="q49"><div class="circle"></div><div class="scale-number">6</div><div class="scale-label">согласен</div></label>
+<label><input type="radio" name="q49"><div class="circle"></div><div class="scale-number">7</div><div class="scale-label">полностью согласен</div></label>
+</div>
+</div>
+</div>
+
+<button class="btn-blue" onclick="checkAnswers()">
+Продолжить
+</button>
+
+<script>
+
+function startSurvey(){
+document.getElementById("startPage").style.display="none";
+document.getElementById("survey").classList.remove("hidden");
+}
+
+function checkAnswers(){
+
+const requiredRadios = ["q45","q46","q47","q48","q49"];
+
+for(let name of requiredRadios){
+let checked = document.querySelector('input[name="'+name+'"]:checked');
+if(!checked){
+alert("Пожалуйста, ответьте на все вопросы перед продолжением.");
+return;
+}
+}
+
+location.href = "блок6.html";
+}
+
+</script>
+
+</div>
+
+
+
+

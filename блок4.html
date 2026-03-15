@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Опрос</title>
+
+<style>
+
+body{
+font-family:Arial,sans-serif;
+background:#f4f6fb;
+margin:0;
+padding:20px;
+}
+
+.start-screen{
+max-width:700px;
+margin:auto;
+background:white;
+padding:40px;
+border-radius:10px;
+border:1px solid #ddd;
+text-align:center;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+background:white;
+padding:30px;
+border-radius:10px;
+border:1px solid #ddd;
+}
+
+.intro{
+line-height:1.6;
+margin-bottom:30px;
+}
+
+.question{
+margin-top:28px;
+}
+
+.option{
+display:flex;
+align-items:flex-start;
+margin-top:10px;
+cursor:pointer;
+}
+
+.option input{
+display:none;
+}
+
+.check{
+width:18px;
+height:18px;
+border:2px solid #2e8b57;
+border-radius:3px;
+margin-right:10px;
+margin-top:3px;
+position:relative;
+flex-shrink:0;
+}
+
+.option input:checked + .check{
+background:#2e8b57;
+}
+
+.option input:checked + .check::after{
+content:"✓";
+color:white;
+font-size:14px;
+position:absolute;
+left:2px;
+top:-1px;
+}
+
+.option-text{
+flex:1;
+}
+
+.btn-blue{
+margin-top:30px;
+background:#2d6cdf;
+color:white;
+border:none;
+padding:12px 30px;
+font-size:16px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.btn-green{
+margin-top:40px;
+background:#2e8b57;
+color:white;
+border:none;
+padding:14px 35px;
+font-size:16px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.btn-green:hover{
+background:#256f47;
+}
+
+.hidden{
+display:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="start-screen" id="startPage">
+
+<p>
+Вам будет предложен ряд пар утверждений, помеченных буквами А и В, из которых вы должны выбрать одно, более предпочитаемое, чем второе.
+<br><br>
+Правильных или неправильных ответов здесь быть не может, поэтому не старайтесь долго их обдумывать – отвечайте, исходя из того, что больше соответствует вашим представлениям о самом себе.
+</p>
+
+<button class="btn-blue" onclick="startSurvey()">ОК</button>
+
+</div>
+
+
+
+<div class="container hidden" id="survey">
+
+<div class="intro">
+
+Вам будет предложен ряд пар утверждений, помеченных буквами А и В, из которых вы должны выбрать одно, более предпочитаемое, чем второе.
+<br><br>
+Правильных или неправильных ответов здесь быть не может, поэтому не старайтесь долго их обдумывать – отвечайте, исходя из того, что больше соответствует вашим представлениям о самом себе.
+
+</div>
+
+
+<!-- 15 -->
+<div class="question">
+<b>15.</b>
+
+<label class="option">
+<input type="radio" name="q15">
+<div class="check"></div>
+<div class="option-text">а) Иногда я предоставляю возможность другим взять на себя ответственность за решение проблемы.</div>
+</label>
+
+<label class="option">
+<input type="radio" name="q15">
+<div class="check"></div>
+<div class="option-text">б) Я пытаюсь подчеркнуть те стороны проблемы, по которым мы согласны друг с другом.</div>
+</label>
+</div>
+
+
+<!-- 16 -->
+<div class="question">
+<b>16.</b>
+
+<label class="option">
+<input type="radio" name="q16">
+<div class="check"></div>
+<div class="option-text">а) Я пытаюсь найти компромиссное решение.</div>
+</label>
+
+<label class="option">
+<input type="radio" name="q16">
+<div class="check"></div>
+<div class="option-text">б) Я пытаюсь заниматься как своими проблемами, так и проблемами партнера.</div>
+</label>
+</div>
+
+
+<!-- 17 -->
+<div class="question">
+<b>17.</b>
+
+<label class="option">
+<input type="radio" name="q17">
+<div class="check"></div>
+<div class="option-text">а) Обычно я настойчив в достижении своих целей.</div>
+</label>
+
+<label class="option">
+<input type="radio" name="q17">
+<div class="check"></div>
+<div class="option-text">б) Я мог бы попытаться успокоить эмоции партнера, чтобы сохранить наши отношения.</div>
+</label>
+</div>
+
+
+<!-- 18 -->
+<div class="question">
+<b>18.</b>
+
+<label class="option">
+<input type="radio" name="q18">
+<div class="check"></div>
+<div class="option-text">а) Я пытаюсь найти компромиссное решение.</div>
+</label>
+
+<label class="option">
+<input type="radio" name="q18">
+<div class="check"></div>
+<div class="option-text">б) Иногда я жертвую своими интересами ради интересов другого человека.</div>
+</label>
+</div>
+
+
+<!-- 19 -->
+<div class="question">
+<b>19.</b>
+
+<label class="option">
+<input type="radio" name="q19">
+<div class="check"></div>
+<div class="option-text">а) В ходе выработки решения проблемы я обращаюсь ко всем партнерам за помощью.</div>
+</label>
+
+<label class="option">
+<input type="radio" name="q19">
+<div class="check"></div>
+<div class="option-text">б) Я пытаюсь сделать всё, чтобы избежать ненужного обострения ситуации.</div>
+</label>
+</div>
+
+
+<!-- 20 -->
+<div class="question">
+<b>20.</b>
+
+<label class="option">
+<input type="radio" name="q20">
+<div class="check"></div>
+<div class="option-text">а) Я пытаюсь избежать возникновения неприятностей для себя.</div>
+</label>
+
+<label class="option">
+<input type="radio" name="q20">
+<div class="check"></div>
+<div class="option-text">б) Я пытаюсь отстоять свою позицию.</div>
+</label>
+</div>
+
+
+<!-- 21 -->
+<div class="question">
+<b>21.</b>
+
+<label class="option">
+<input type="radio" name="q21">
+<div class="check"></div>
+<div class="option-text">а) Я пытаюсь отложить решение спорного вопроса.</div>
+</label>
+
+<label class="option">
+<input type="radio" name="q21">
+<div class="check"></div>
+<div class="option-text">б) Я уступаю по некоторым пунктам в обмен на уступки.</div>
+</label>
+</div>
+
+
+<!-- 22 -->
+<div class="question">
+<b>22.</b>
+
+<label class="option">
+<input type="radio" name="q22">
+<div class="check"></div>
+<div class="option-text">а) Обычно я настойчив в достижении своих целей.</div>
+</label>
+
+<label class="option">
+<input type="radio" name="q22">
+<div class="check"></div>
+<div class="option-text">б) Я стараюсь определить все проблемы и спорные вопросы.</div>
+</label>
+</div>
+
+
+<!-- 23 -->
+<div class="question">
+<b>23.</b>
+
+<label class="option">
+<input type="radio" name="q23">
+<div class="check"></div>
+<div class="option-text">а) Я полагаю, что разногласия не всегда настолько значимы.</div>
+</label>
+
+<label class="option">
+<input type="radio" name="q23">
+<div class="check"></div>
+<div class="option-text">б) Я предпринимаю усилия, чтобы добиться своего.</div>
+</label>
+</div>
+
+
+<!-- 24 -->
+<div class="question">
+<b>24.</b>
+
+<label class="option">
+<input type="radio" name="q24">
+<div class="check"></div>
+<div class="option-text">а) Я настойчив в достижении своих целей.</div>
+</label>
+
+<label class="option">
+<input type="radio" name="q24">
+<div class="check"></div>
+<div class="option-text">б) Я пытаюсь найти компромиссное решение.</div>
+</label>
+</div>
+
+
+<!-- 25 -->
+<div class="question">
+<b>25.</b>
+
+<label class="option">
+<input type="radio" name="q25">
+<div class="check"></div>
+<div class="option-text">а) Я стараюсь определить все проблемы и спорные вопросы.</div>
+</label>
+
+<label class="option">
+<input type="radio" name="q25">
+<div class="check"></div>
+<div class="option-text">б) Я мог бы попытаться успокоить эмоции партнера.</div>
+</label>
+</div>
+
+
+<!-- 26 -->
+<div class="question">
+<b>26.</b>
+
+<label class="option">
+<input type="radio" name="q26">
+<div class="check"></div>
+<div class="option-text">а) Иногда я избегаю занимать позиции, которые могли бы вызвать споры.</div>
+</label>
+
+<label class="option">
+<input type="radio" name="q26">
+<div class="check"></div>
+<div class="option-text">б) Я позволю партнеру сохранить часть своих позиций.</div>
+</label>
+</div>
+
+
+<!-- 27 -->
+<div class="question">
+<b>27.</b>
+
+<label class="option">
+<input type="radio" name="q27">
+<div class="check"></div>
+<div class="option-text">а) Я предлагаю договориться.</div>
+</label>
+
+<label class="option">
+<input type="radio" name="q27">
+<div class="check"></div>
+<div class="option-text">б) Я настаиваю, чтобы мои требования были выполнены.</div>
+</label>
+</div>
+
+
+<!-- 28 -->
+<div class="question">
+<b>28.</b>
+
+<label class="option">
+<input type="radio" name="q28">
+<div class="check"></div>
+<div class="option-text">а) Я высказываю партнеру свои предложения и интересуюсь его предложениями.</div>
+</label>
+
+<label class="option">
+<input type="radio" name="q28">
+<div class="check"></div>
+<div class="option-text">б) Я пытаюсь продемонстрировать партнеру логику и выгоды моей позиции.</div>
+</label>
+</div>
+
+
+<!-- 29 -->
+<div class="question">
+<b>29.</b>
+
+<label class="option">
+<input type="radio" name="q29">
+<div class="check"></div>
+<div class="option-text">а) Я пытаюсь успокоить эмоции партнера.</div>
+</label>
+
+<label class="option">
+<input type="radio" name="q29">
+<div class="check"></div>
+<div class="option-text">б) Я пытаюсь избежать обострения ситуации.</div>
+</label>
+</div>
+
+
+<!-- 30 -->
+<div class="question">
+<b>30.</b>
+
+<label class="option">
+<input type="radio" name="q30">
+<div class="check"></div>
+<div class="option-text">а) Я пытаюсь не обижать партнеров.</div>
+</label>
+
+<label class="option">
+<input type="radio" name="q30">
+<div class="check"></div>
+<div class="option-text">б) Я пытаюсь убедить партнера в достоинствах моей позиции.</div>
+</label>
+</div>
+
+
+<!-- 31–44 (аналогично) -->
+
+<div class="question"><b>31.</b>
+<label class="option"><input type="radio" name="q31"><div class="check"></div><div class="option-text">а) Обычно я настойчив в достижении своих целей.</div></label>
+<label class="option"><input type="radio" name="q31"><div class="check"></div><div class="option-text">б) Я пытаюсь избежать ненужного обострения ситуации.</div></label>
+</div>
+
+<div class="question"><b>32.</b>
+<label class="option"><input type="radio" name="q32"><div class="check"></div><div class="option-text">а) Если это сделает другого счастливее, я позволю ему сохранить своё мнение.</div></label>
+<label class="option"><input type="radio" name="q32"><div class="check"></div><div class="option-text">б) Я позволю партнеру сохранить часть своих позиций.</div></label>
+</div>
+
+<div class="question"><b>33.</b>
+<label class="option"><input type="radio" name="q33"><div class="check"></div><div class="option-text">а) Я пытаюсь определить все проблемы и спорные вопросы.</div></label>
+<label class="option"><input type="radio" name="q33"><div class="check"></div><div class="option-text">б) Я пытаюсь отложить решение вопроса.</div></label>
+</div>
+
+<div class="question"><b>34.</b>
+<label class="option"><input type="radio" name="q34"><div class="check"></div><div class="option-text">а) Я стараюсь быстро преодолевать разногласия.</div></label>
+<label class="option"><input type="radio" name="q34"><div class="check"></div><div class="option-text">б) Я ищу сочетание выигрышей и потерь.</div></label>
+</div>
+
+<div class="question"><b>35.</b>
+<label class="option"><input type="radio" name="q35"><div class="check"></div><div class="option-text">а) Перед переговорами я внимателен к пожеланиям партнера.</div></label>
+<label class="option"><input type="radio" name="q35"><div class="check"></div><div class="option-text">б) Я склоняюсь к прямому обсуждению проблемы.</div></label>
+</div>
+
+<div class="question"><b>36.</b>
+<label class="option"><input type="radio" name="q36"><div class="check"></div><div class="option-text">а) Я ищу позицию между моей и другой точкой зрения.</div></label>
+<label class="option"><input type="radio" name="q36"><div class="check"></div><div class="option-text">б) Я настаиваю на выполнении моих пожеланий.</div></label>
+</div>
+
+<div class="question"><b>37.</b>
+<label class="option"><input type="radio" name="q37"><div class="check"></div><div class="option-text">а) Я стараюсь чтобы были удовлетворены все пожелания.</div></label>
+<label class="option"><input type="radio" name="q37"><div class="check"></div><div class="option-text">б) Иногда я позволяю другим взять ответственность.</div></label>
+</div>
+
+<div class="question"><b>38.</b>
+<label class="option"><input type="radio" name="q38"><div class="check"></div><div class="option-text">а) Если позиция другого важна — иду навстречу.</div></label>
+<label class="option"><input type="radio" name="q38"><div class="check"></div><div class="option-text">б) Я стараюсь убедить другого прийти к компромиссу.</div></label>
+</div>
+
+<div class="question"><b>39.</b>
+<label class="option"><input type="radio" name="q39"><div class="check"></div><div class="option-text">а) Я демонстрирую логику своей позиции.</div></label>
+<label class="option"><input type="radio" name="q39"><div class="check"></div><div class="option-text">б) Перед переговорами учитываю пожелания партнера.</div></label>
+</div>
+
+<div class="question"><b>40.</b>
+<label class="option"><input type="radio" name="q40"><div class="check"></div><div class="option-text">а) Я предлагаю договориться.</div></label>
+<label class="option"><input type="radio" name="q40"><div class="check"></div><div class="option-text">б) Я почти всегда стараюсь удовлетворить пожелания всех.</div></label>
+</div>
+
+<div class="question"><b>41.</b>
+<label class="option"><input type="radio" name="q41"><div class="check"></div><div class="option-text">а) Иногда я избегаю позиций, вызывающих споры.</div></label>
+<label class="option"><input type="radio" name="q41"><div class="check"></div><div class="option-text">б) Я могу позволить другому сохранить своё мнение.</div></label>
+</div>
+
+<div class="question"><b>42.</b>
+<label class="option"><input type="radio" name="q42"><div class="check"></div><div class="option-text">а) Обычно я настойчив в достижении своих целей.</div></label>
+<label class="option"><input type="radio" name="q42"><div class="check"></div><div class="option-text">б) Я обращаюсь ко всем партнерам за помощью.</div></label>
+</div>
+
+<div class="question"><b>43.</b>
+<label class="option"><input type="radio" name="q43"><div class="check"></div><div class="option-text">а) Я предлагаю договориться.</div></label>
+<label class="option"><input type="radio" name="q43"><div class="check"></div><div class="option-text">б) Я считаю разногласия не всегда значимыми.</div></label>
+</div>
+
+<div class="question"><b>44.</b>
+<label class="option"><input type="radio" name="q44"><div class="check"></div><div class="option-text">а) Я пытаюсь не обижать партнеров.</div></label>
+<label class="option"><input type="radio" name="q44"><div class="check"></div><div class="option-text">б) Я работаю над проблемой совместно с партнером.</div></label>
+</div>
+
+
+<button class="btn-green" onclick="checkAnswers()">
+Продолжить
+</button>
+
+<script>
+
+function startSurvey(){
+document.getElementById("startPage").style.display="none";
+document.getElementById("survey").classList.remove("hidden");
+}
+
+function checkAnswers(){
+
+const requiredRadios = ["q15","q16","q17","q18","q19","q20","q21","q22","q23","q24","q25","q26","q27","q28","q29","q30","q31","q32","q33","q34","q35","q36","q37","q38","q39","q40","q41","q42","q43","q44"];
+
+for(let name of requiredRadios){
+let checked = document.querySelector('input[name="'+name+'"]:checked');
+if(!checked){
+alert("Пожалуйста, ответьте на все вопросы перед продолжением.");
+return;
+}
+}
+
+location.href = "блок5.html";
+}
+
+</script>
+</div>
+
+<script>
+function startSurvey(){
+document.getElementById("startPage").style.display="none";
+document.getElementById("survey").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
