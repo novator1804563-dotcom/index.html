@@ -423,20 +423,22 @@ document.getElementById("survey").classList.remove("hidden");
 }
 
 function checkAnswers(){
-  const requiredRadios = ["q10","q11","q12","q13","q14"];
-  const data = Object.fromEntries(formData);
-  localStorage.setItem('block4Data', JSON.stringify(data));
-for(let name of requiredRadios)
-{let checked = document.querySelector('input[name="'+name+'"]:checked');
-if(!checked)
-{alert("Пожалуйста, ответьте на все вопросы перед продолжением.");
-return;}}
+
+const requiredRadios = ["q11","q12","q14","q10"];
+
+for(let name of requiredRadios){
+let checked = document.querySelector('input[name="'+name+'"]:checked');
+if(!checked){
+alert("Пожалуйста, ответьте на все вопросы перед продолжением.");
+return;
+}
+}
 
 location.href = "блок4.html";
 }
-  
-<script>
+
 </script>
+<script>
 
 function startSurvey(){
 document.getElementById("startPage").style.display="none";
@@ -447,6 +449,7 @@ document.getElementById("survey").classList.remove("hidden");
 
 </body>
 </html>
+
 
 
 
