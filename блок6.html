@@ -324,7 +324,11 @@ async function showFinishScreen() {
                 currentQuestion++;
                 loadQuestion();
             } else {
-                // Последний вопрос пройден - показываем экран завершения
+                } else {
+            alert(`Сумма должна быть равна 100, сейчас: ${sum}`);
+        }
+    }  
+              // Последний вопрос пройден - показываем экран завершения
                 showFinishScreen();
             }
     function prevQuestion() {
