@@ -425,6 +425,9 @@ document.getElementById("survey").classList.remove("hidden");
 function checkAnswers(){
 
 const requiredRadios = ["q11","q12","q14","q10"];
+const formData = new FormData(document.querySelector('form'));
+  const data = Object.fromEntries(formData);
+  localStorage.setItem('block3Data', JSON.stringify(data));
 
 for(let name of requiredRadios){
 let checked = document.querySelector('input[name="'+name+'"]:checked');
