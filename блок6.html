@@ -230,6 +230,15 @@
             outline: none;
             border-color: #4caf50;
         }
+        #feedbackEmail.sent {
+            border-color: #4caf50;
+            background-color: #e8f5e8;
+        }
+
+        /* Скрытие элементов */
+        .hidden {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
@@ -252,7 +261,7 @@
 
 <!-- ================== Экран вопросов ================== -->
 <div class="container" id="questionsScreen" style="display: none;">
-    <div class="top-bar">
+    <div class="top-bar" id="topBar">
         <button class="btn-back" onclick="prevQuestion()" id="backBtn">← Назад</button>
         <div class="progress" id="progress">Вопрос 1 из 12</div>
     </div>
@@ -265,7 +274,7 @@
             <!-- Каждый вопрос на отдельной странице -->
         </div>
         
-        <div class="center">
+        <div class="center" id="centerBlock">
             <button type="button" class="btn-next" onclick="onNext()" id="nextBtn">Продолжить →</button>
             <div id="sumInfo" class="sum-text">Сумма: 0 (должно быть 100)</div>
         </div>
@@ -356,6 +365,7 @@
     let currentQuestion = 0;
     let answers = {};
     let testCompleted = false;
+    let emailSent = false;
 
     // Старт теста
     function startTest() {
@@ -448,31 +458,33 @@
         }
     }
 
-    // Финальный экран (упрощён по вашему описанию)
+    // Полностью очищенная функция финального экрана
     async function showFinishScreen() {
         testCompleted = true;
-        document.querySelector('.top-bar').style.display = 'none';
-        document.getElementById('label').style.display = 'none';
-
-        // Заголовок "спасибо"
+        
+        // Полная очистка всех элементов вопросов
+        document.getElementById('topBar').classList.add('hidden');
+        document.getElementById('label').classList.add('hidden');
+        document.getElementById('questionsContainer').innerHTML = '';
+        document.getElementById('nextBtn').classList.add('hidden');
+        document.getElementById('sumInfo').classList.add('hidden');
+        
+        // Чистый заголовок финального экрана
         document.getElementById('questionTitle').innerHTML = `
             <div class="finish-screen">Спасибо за прохождение тестирования!</div>
             <div class="finish-subtitle">Данные направлены в систему</div>
         `;
 
-        // Очищаем вопросы
-        document.getElementById('questionsContainer').innerHTML = '';
-
-        // Внизу только блок для e-mail без кнопок
-        const center = document.querySelector('.center');
-        center.innerHTML = `
+        // Только поле для email без лишних элементов
+        const centerBlock = document.getElementById('centerBlock');
+        centerBlock.innerHTML = `
             <div class="feedback-box" id="feedbackBox">
                 <div>Для получения обратной связи укажите, пожалуйста, вашу почту:</div>
                 <input type="email" id="feedbackEmail" placeholder="your@email.com">
             </div>
         `;
 
-        // Отправка основных данных
+        // Отправка основных данных теста
         try {
             await fetch('https://script.google.com/macros/s/AKfycbybOp_LEevderLdwJOGCh5iWlQ6PLK72s8tNX05TPKlah50wtozH8GQmHR-k3hHa_IahA/exec', {
                 method: 'POST',
@@ -480,13 +492,39 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ answers: answers })
             });
-            console.log('Данные отправлены');
+            console.log('Основные данные отправлены успешно');
         } catch (e) {
-            console.error('Ошибка:', e);
+            console.error('Ошибка отправки данных:', e);
         }
 
-        // Если хотите всё же отправлять почту отдельно по событию blur/изменения —
-        // можно добавить обработчик здесь. Сейчас он не требуется по вашему описанию.
+        // Обработчик отправки email при заполнении поля
+        const emailInput = document.getElementById('feedbackEmail');
+        emailInput.addEventListener('blur', sendEmail);
+        emailInput.addEventListener('change', sendEmail);
+    }
+
+    // Отправка email
+    async function sendEmail() {
+        const email = document.getElementById('feedbackEmail').value.trim();
+        if (email && !emailSent && email.includes('@')) {
+            try {
+                await fetch('https://script.google.com/macros/s/AKfycbybOp_LEevderLdwJOGCh5iWlQ6PLK72s8tNX05TPKlah50wtozH8GQmHR-k3hHa_IahA/exec', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        email: email, 
+                        answers: answers,
+                        type: 'feedback_request'
+                    })
+                });
+                emailSent = true;
+                document.getElementById('feedbackEmail').classList.add('sent');
+                console.log('Email отправлен:', email);
+            } catch (e) {
+                console.error('Ошибка отправки email:', e);
+            }
+        }
     }
 
     // Обработчик радио-кнопок
