@@ -110,25 +110,29 @@
         }
 
         .options label {
-            min-width: 45px;
+            min-width: 55px;
+            height: 55px;
             text-align: center;
-            padding: 14px 14px;
+            padding: 0;
             border: 2px solid #c0c0c0;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             background: #f8f9fa;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 500;
             box-sizing: border-box;
             transition: all 0.2s ease;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .options label:hover {
             border-color: #4caf50;
             background: #e8f5e8;
         }
         .options input[type="radio"]:checked + span {
-            background: #1976d2 !important;
+            background: #4caf50 !important;
             color: #ffffff !important;
             border-color: #388e3c !important;
             font-weight: bold;
@@ -138,6 +142,12 @@
             display: block;
             width: 100%;
             height: 100%;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            box-sizing: border-box;
         }
 
         .center { 
@@ -146,7 +156,7 @@
             padding-top: 25px;
             border-top: 2px solid #e8e8e8;
         }
-        .btn-next, .btn-ok {
+        .btn-next, .btn-ok, .btn-finish {
             padding: 20px 60px;
             background: #4caf50;
             color: white;
@@ -157,8 +167,9 @@
             cursor: pointer;
             transition: all 0.2s;
             box-shadow: 0 3px 8px rgba(76, 175, 80, 0.3);
+            margin: 10px;
         }
-        .btn-next:hover, .btn-ok:hover {
+        .btn-next:hover, .btn-ok:hover, .btn-finish:hover {
             background: #45a049;
             transform: translateY(-1px);
             box-shadow: 0 5px 12px rgba(76, 175, 80, 0.4);
@@ -225,6 +236,7 @@
             font-size: 15px;
             box-sizing: border-box;
             transition: border-color 0.2s;
+            margin-bottom: 20px;
         }
         #feedbackEmail:focus {
             outline: none;
@@ -475,16 +487,27 @@
             <div class="finish-subtitle">Данные направлены в систему</div>
         `;
 
-        // Только поле для email без лишних элементов
+        // Поле для email + кнопка Завершить
         const centerBlock = document.getElementById('centerBlock');
         centerBlock.innerHTML = `
             <div class="feedback-box" id="feedbackBox">
                 <div>Если Вы хотите получить обратную связь, пожалуйста укажите Вашу почту:</div>
                 <input type="email" id="feedbackEmail" placeholder="your@email.com">
+                <button class="btn-finish" onclick="finishTest()">Завершить</button>
             </div>
         `;
 
-        // Отправка основных данных теста
+        // Обработчик отправки email при заполнении поля
+        const emailInput = document.getElementById('feedbackEmail');
+        emailInput.addEventListener('blur', sendEmail);
+        emailInput.addEventListener('change', sendEmail);
+    }
+
+    // Финальное завершение теста
+    async function finishTest() {
+        const email = document.getElementById('feedbackEmail').value.trim();
+        
+        // Отправка основных данных теста (если еще не отправлены)
         try {
             await fetch('https://script.google.com/macros/s/AKfycbybOp_LEevderLdwJOGCh5iWlQ6PLK72s8tNX05TPKlah50wtozH8GQmHR-k3hHa_IahA/exec', {
                 method: 'POST',
@@ -497,10 +520,21 @@
             console.error('Ошибка отправки данных:', e);
         }
 
-        // Обработчик отправки email при заполнении поля
-        const emailInput = document.getElementById('feedbackEmail');
-        emailInput.addEventListener('blur', sendEmail);
-        emailInput.addEventListener('change', sendEmail);
+        // Отправка email если указан
+        if (email && email.includes('@')) {
+            await sendEmail();
+        }
+
+        // Показываем сообщение об успешном завершении
+        document.getElementById('questionTitle').innerHTML = `
+            <div class="finish-screen">Тест успешно завершен!</div>
+            <div class="finish-subtitle">Спасибо за участие!</div>
+        `;
+        document.getElementById('centerBlock').innerHTML = `
+            <div style="font-size: 18px; color: #4caf50; margin-top: 20px;">
+                Вы можете закрыть эту страницу.
+            </div>
+        `;
     }
 
     // Отправка email
