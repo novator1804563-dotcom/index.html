@@ -87,9 +87,12 @@
   transform: scale(1.1);
 }
 
-.scale-grid input:checked + .circle {
-  background: #2d6cdf;
-  box-shadow: 0 0 0 4px rgba(45, 108, 223, 0.3);
+.scale-grid label:has(input:checked) {
+  background: linear-gradient(to bottom, rgba(45, 108, 223, 0.15) 0%, rgba(45, 108, 223, 0.25) 100%);
+  border-radius: 8px;
+  padding: 8px 4px;
+  margin: 0 -4px; /* Чтобы фон доходил до краев gap */
+  transition: background 0.3s ease;
 }
 
 .scale-number {
