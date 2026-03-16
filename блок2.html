@@ -280,7 +280,7 @@ const btn = document.getElementById('nextBtn');
 if (form.checkValidity()) {
 const formData = new FormData(form);
 const data = Object.fromEntries(formData);
-localStorage.setItem('demoData', JSON.stringify(data));
+localStorage.setItem('block2Data', JSON.stringify(data));
 
 btn.disabled = true;
 btn.textContent = 'Переходим...';
