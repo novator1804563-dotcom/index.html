@@ -483,8 +483,7 @@
         
         // Чистый заголовок финального экрана
         document.getElementById('questionTitle').innerHTML = `
-            <div class="finish-screen">Благодарим за участие и Ваш вклад в наше исследование!</div>
-            <div class="finish-subtitle">Данные направлены в систему</div>
+            <div class="finish-screen">Данные направлены в систему</div>
         `;
 
         // Поле для email + кнопка Завершить
@@ -515,12 +514,11 @@ function finishTest(){
 
   // 🔥 СНАЧАЛА показываем "Спасибо"
   document.getElementById('questionTitle').innerHTML = `
-    <div class="finish-screen">Спасибо за участие!</div>
+    <div class="finish-screen">Благодарим за участие и Ваш вклад в наше исследование!</div>
   `;
 
   document.getElementById('centerBlock').innerHTML = `
     <div style="font-size:18px;color:#4caf50;margin-top:20px;">
-      Данные отправлены ✔<br><br>
       Вы можете закрыть эту страницу.
     </div>
   `;
