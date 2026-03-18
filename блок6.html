@@ -509,7 +509,7 @@
         
         // Отправка основных данных теста (если еще не отправлены)
         try {
-            await fetch('https://script.google.com/macros/s/AKfycbybOp_LEevderLdwJOGCh5iWlQ6PLK72s8tNX05TPKlah50wtozH8GQmHR-k3hHa_IahA/exec', {
+            await fetch('https://script.google.com/macros/s/AKfycbxzqibRsUBn3yYX3usCMXCvIiNFlm6IAk14jy3-xp41I_BOaT4KcpqFZzZK8uOv056MTA/exec', {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
@@ -527,8 +527,7 @@
 
         // Показываем сообщение об успешном завершении
         document.getElementById('questionTitle').innerHTML = `
-            <div class="finish-screen">Тест успешно завершен!</div>
-            <div class="finish-subtitle">Спасибо за участие!</div>
+            <div class="finish-subtitle">Благодарим за участие и Ваш вклад в наше исследование!</div>
         `;
         document.getElementById('centerBlock').innerHTML = `
             <div style="font-size: 18px; color: #4caf50; margin-top: 20px;">
@@ -536,13 +535,13 @@
             </div>
         `;
     }
-
+    
     // Отправка email
     async function sendEmail() {
         const email = document.getElementById('feedbackEmail').value.trim();
         if (email && !emailSent && email.includes('@')) {
             try {
-                await fetch('https://script.google.com/macros/s/AKfycbybOp_LEevderLdwJOGCh5iWlQ6PLK72s8tNX05TPKlah50wtozH8GQmHR-k3hHa_IahA/exec', {
+                await fetch('https://script.google.com/macros/s/AKfycbxzqibRsUBn3yYX3usCMXCvIiNFlm6IAk14jy3-xp41I_BOaT4KcpqFZzZK8uOv056MTA/exec', {
                     method: 'POST',
                     mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
