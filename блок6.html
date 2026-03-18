@@ -507,18 +507,18 @@
     async function finishTest() {
     const email = document.getElementById('feedbackEmail').value.trim();
 
-    // Формируем объект для отправки
+    // Формируем объект для отправки в Google Таблицу
     const payload = {
-        timestamp: new Date().toISOString(),
+        sheetName: "Блок 6", // <-- название листа
+        timestamp: new Date().toLocaleString(),
         answers: answers,
         email: email
     };
 
     try {
-        // Отправка в Google Таблицу через Apps Script
-        fetch('https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbxOcyRcIYaaKEy40DX1wrYJC28-tU3wEuQrJD4sJHqS5UEbQcOpWYyVKyuI9lehivSIwA/exec/exec', {
+        await fetch('https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbydR6sXdTkRzNHZ0SHgNwogqqXUimpSSsN1PckvB-y0GM8exasatXHkPEZInRhev86n7g/exec/exec', {
             method: 'POST',
-            mode: 'no-cors', // важно для обхода ограничений
+            mode: 'no-cors', // важно для обхода ограничений CORS
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
@@ -527,7 +527,7 @@
         console.error('Ошибка отправки данных:', e);
     }
 
-    // Показ экрана благодарности сразу
+    // Показ экрана благодарности
     document.getElementById('questionTitle').innerHTML = `
         <div class="finish-screen">Тест успешно завершен!</div>
         <div class="finish-subtitle">Спасибо за участие!</div>
@@ -544,7 +544,7 @@
         const email = document.getElementById('feedbackEmail').value.trim();
         if (email && !emailSent && email.includes('@')) {
             try {
-                await fetch('https://script.google.com/macros/s/AKfycbxzqibRsUBn3yYX3usCMXCvIiNFlm6IAk14jy3-xp41I_BOaT4KcpqFZzZK8uOv056MTA/exec', {
+                await fetch('https://script.google.com/macros/s/AKfycbydR6sXdTkRzNHZ0SHgNwogqqXUimpSSsN1PckvB-y0GM8exasatXHkPEZInRhev86n7g/exec', {
                     method: 'POST',
                     mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
