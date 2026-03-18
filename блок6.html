@@ -507,18 +507,18 @@
     async function finishTest() {
     const email = document.getElementById('feedbackEmail').value.trim();
 
-    // Формируем объект для отправки в Google Таблицу
+    // Формируем объект для отправки
     const payload = {
-        sheetName: "Блок 6", // <-- название листа
-        timestamp: new Date().toLocaleString(),
+        timestamp: new Date().toISOString(),
         answers: answers,
         email: email
     };
 
     try {
-        await fetch('https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbydR6sXdTkRzNHZ0SHgNwogqqXUimpSSsN1PckvB-y0GM8exasatXHkPEZInRhev86n7g/exec/exec', {
+        // Отправка в Google Таблицу через Apps Script
+        fetch('https://script.google.com/macros/s/ВАШ_СКРИПТ_URL/exec', {
             method: 'POST',
-            mode: 'no-cors', // важно для обхода ограничений CORS
+            mode: 'no-cors', // важно для обхода ограничений
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
@@ -527,7 +527,7 @@
         console.error('Ошибка отправки данных:', e);
     }
 
-    // Показ экрана благодарности
+    // Показ экрана благодарности сразу
     document.getElementById('questionTitle').innerHTML = `
         <div class="finish-screen">Тест успешно завершен!</div>
         <div class="finish-subtitle">Спасибо за участие!</div>
@@ -538,7 +538,7 @@
         </div>
     `;
 }
-   
+
     // Отправка email
     async function sendEmail() {
         const email = document.getElementById('feedbackEmail').value.trim();
