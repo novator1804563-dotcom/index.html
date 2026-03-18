@@ -513,44 +513,27 @@
     timestamp: new Date().toISOString(),
 
     email: email,
-
     answers: answers,
-
     sheetName: "Блок 6"
 
   };
 
-  try{
-
-    await fetch("https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbz_sOV1lOGcgfIy19cWlVMTZK_R37QlmhtWnC50YSsPamNmbmmOetyCnqqj5ssFWBnoxQ/exec/exec",{
-
+  try{await fetch("https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbz_sOV1lOGcgfIy19cWlVMTZK_R37QlmhtWnC50YSsPamNmbmmOetyCnqqj5ssFWBnoxQ/exec/exec",{
       method:'POST',
-
       mode:'no-cors',
-
       headers:{'Content-Type':'application/json'},
-
       body:JSON.stringify(payload)
-
-    });
-
-  }catch(e){ console.error(e); }
-
+    });}catch(e){ console.error(e); }
   document.getElementById('questionTitle').innerHTML=`
     <div class="finish-screen">Тест успешно завершен!</div>
     <div class="finish-subtitle">Спасибо за участие!</div>
   `;
-
   document.getElementById('centerBlock').innerHTML=`
-
     <div style="font-size:18px;color:#4caf50;margin-top:20px;">
 
       Вы можете закрыть эту страницу.
-
     </div>
-
   `;
-
 }
     // Отправка email
     async function sendEmail() {
