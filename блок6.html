@@ -505,37 +505,40 @@
 
     // Финальное завершение теста
     async function finishTest() {
-        const email = document.getElementById('feedbackEmail').value.trim();
-        
-        // Отправка основных данных теста (если еще не отправлены)
-        try {
-            await fetch('https://script.google.com/macros/s/AKfycbxzqibRsUBn3yYX3usCMXCvIiNFlm6IAk14jy3-xp41I_BOaT4KcpqFZzZK8uOv056MTA/exec', {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ answers: answers })
-            });
-            console.log('Основные данные отправлены успешно');
-        } catch (e) {
-            console.error('Ошибка отправки данных:', e);
-        }
+    const email = document.getElementById('feedbackEmail').value.trim();
 
-        // Отправка email если указан
-        if (email && email.includes('@')) {
-            await sendEmail();
-        }
+    // Формируем объект для отправки
+    const payload = {
+        timestamp: new Date().toISOString(),
+        answers: answers,
+        email: email
+    };
 
-        // Показываем сообщение об успешном завершении
-        document.getElementById('questionTitle').innerHTML = `
-            <div class="finish-subtitle">Благодарим за участие и Ваш вклад в наше исследование!</div>
-        `;
-        document.getElementById('centerBlock').innerHTML = `
-            <div style="font-size: 18px; color: #4caf50; margin-top: 20px;">
-                Вы можете закрыть эту страницу.
-            </div>
-        `;
+    try {
+        // Отправка в Google Таблицу через Apps Script
+        fetch('https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbxOcyRcIYaaKEy40DX1wrYJC28-tU3wEuQrJD4sJHqS5UEbQcOpWYyVKyuI9lehivSIwA/exec/exec', {
+            method: 'POST',
+            mode: 'no-cors', // важно для обхода ограничений
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        console.log('Данные успешно отправлены в таблицу');
+    } catch (e) {
+        console.error('Ошибка отправки данных:', e);
     }
-    
+
+    // Показ экрана благодарности сразу
+    document.getElementById('questionTitle').innerHTML = `
+        <div class="finish-screen">Тест успешно завершен!</div>
+        <div class="finish-subtitle">Спасибо за участие!</div>
+    `;
+    document.getElementById('centerBlock').innerHTML = `
+        <div style="font-size: 18px; color: #4caf50; margin-top: 20px;">
+            Вы можете закрыть эту страницу.
+        </div>
+    `;
+}
+   
     // Отправка email
     async function sendEmail() {
         const email = document.getElementById('feedbackEmail').value.trim();
