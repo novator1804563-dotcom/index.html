@@ -505,7 +505,6 @@
 
     // Финальное завершение теста
 function finishTest(){
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz_sOV1lOGcgfIy19cWlVMTZK_R37QlmhtWnC50YSsPamNmbmmOetyCnqqj5ssFWBnoxQ/exec";
   const email = document.getElementById('feedbackEmail').value.trim();
   const payload = {
     timestamp: new Date().toISOString(),
@@ -528,7 +527,7 @@ function finishTest(){
 
   // 🔥 ПОТОМ отправка (без await, чтобы не ломать UI)
   try {
-    fetch("https://script.google.com/macros/s/ВАШ_ID_SCRIPT/exec", {
+    fetch("https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbz_sOV1lOGcgfIy19cWlVMTZK_R37QlmhtWnC50YSsPamNmbmmOetyCnqqj5ssFWBnoxQ/exec/exec", {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
