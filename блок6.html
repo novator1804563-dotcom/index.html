@@ -505,8 +505,8 @@
 
     // Финальное завершение теста
 function finishTest(){
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz_sOV1lOGcgfIy19cWlVMTZK_R37QlmhtWnC50YSsPamNmbmmOetyCnqqj5ssFWBnoxQ/exec";
   const email = document.getElementById('feedbackEmail').value.trim();
-
   const payload = {
     timestamp: new Date().toISOString(),
     email: email,
