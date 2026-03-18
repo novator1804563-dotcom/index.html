@@ -273,31 +273,63 @@ max-width: calc(50% - 4px);
 </div>
 
 <script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzCKBWn2jFLPoZ4PX1loorAAvhSZhsugh_OFEVGdBy3ve_AhBFGIIJ1BeLkemQB5tv1Qg/exec";
+
 function onNext() {
-const form = document.getElementById('demoForm');
-const btn = document.getElementById('nextBtn');
+  const form = document.getElementById('demoForm');
+  const btn = document.getElementById('nextBtn');
 
-if (form.checkValidity()) {
-const formData = new FormData(form);
-const data = Object.fromEntries(formData);
-localStorage.setItem('block2Data', JSON.stringify(data));
+  if (form.checkValidity()) {
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
 
-btn.disabled = true;
-btn.textContent = 'Переходим...';
+    // сохраняем локально
+    localStorage.setItem('block2Data', JSON.stringify(data));
 
-setTimeout(() => {
-window.location.href = 'блок3.html';
-}, 500);
-} else {
-alert('Пожалуйста, заполните все обязательные поля');
-form.reportValidity();
+    // формируем массив значений (в строку таблицы)
+    const values = [
+      new Date().toLocaleString(),
+      data.age,
+      data.gender,
+      data.education,
+      data.profession,
+      data.position,
+      data.total_exp,
+      data.org_exp,
+      data.industry,
+      data.team_size
+    ];
+
+    // отправка в Google Sheets
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      body: JSON.stringify({
+        sheet: "Блок 2", // 👈 имя листа (для этого блока)
+        values: values
+      })
+    })
+    .then(res => res.json())
+    .then(response => {
+      console.log("Успех:", response);
+
+      btn.disabled = true;
+      btn.textContent = 'Переходим...';
+
+      setTimeout(() => {
+        window.location.href = 'блок3.html';
+      }, 500);
+    })
+    .catch(error => {
+      console.error("Ошибка:", error);
+      alert("Ошибка отправки данных");
+    });
+
+  } else {
+    alert('Пожалуйста, заполните все обязательные поля');
+    form.reportValidity();
+  }
 }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-document.querySelector('input[name="age"]').focus();
-});
 </script>
-
+  
 </body>
 </html>
