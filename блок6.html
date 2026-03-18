@@ -516,7 +516,7 @@
 
     try {
         // Отправка в Google Таблицу через Apps Script
-        fetch('https://script.google.com/macros/s/ВАШ_СКРИПТ_URL/exec', {
+        fetch('https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbz_sOV1lOGcgfIy19cWlVMTZK_R37QlmhtWnC50YSsPamNmbmmOetyCnqqj5ssFWBnoxQ/exec/exec', {
             method: 'POST',
             mode: 'no-cors', // важно для обхода ограничений
             headers: { 'Content-Type': 'application/json' },
@@ -544,7 +544,7 @@
         const email = document.getElementById('feedbackEmail').value.trim();
         if (email && !emailSent && email.includes('@')) {
             try {
-                await fetch('https://script.google.com/macros/s/AKfycbydR6sXdTkRzNHZ0SHgNwogqqXUimpSSsN1PckvB-y0GM8exasatXHkPEZInRhev86n7g/exec', {
+                await fetch('https://script.google.com/macros/s/AKfycbz_sOV1lOGcgfIy19cWlVMTZK_R37QlmhtWnC50YSsPamNmbmmOetyCnqqj5ssFWBnoxQ/exec', {
                     method: 'POST',
                     mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
