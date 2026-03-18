@@ -504,61 +504,40 @@
     }
 
     // Финальное завершение теста
-    async function finishTest(){
-
-  const email=document.getElementById('feedbackEmail').value.trim();
+function finishTest(){
+  const email = document.getElementById('feedbackEmail').value.trim();
 
   const payload = {
-
     timestamp: new Date().toISOString(),
-
     email: email,
     answers: answers,
-    sheetName: "Блок 6"
-
+    sheetName: "Ответы"
   };
 
-  try{await fetch("https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbz_sOV1lOGcgfIy19cWlVMTZK_R37QlmhtWnC50YSsPamNmbmmOetyCnqqj5ssFWBnoxQ/exec/exec",{
-      method:'POST',
-      mode:'no-cors',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(payload)
-    });}catch(e){ console.error(e); }
-  document.getElementById('questionTitle').innerHTML=`
-    <div class="finish-screen">Тест успешно завершен!</div>
-    <div class="finish-subtitle">Спасибо за участие!</div>
+  // 🔥 СНАЧАЛА показываем "Спасибо"
+  document.getElementById('questionTitle').innerHTML = `
+    <div class="finish-screen">Спасибо за участие!</div>
   `;
-  document.getElementById('centerBlock').innerHTML=`
-    <div style="font-size:18px;color:#4caf50;margin-top:20px;">
 
+  document.getElementById('centerBlock').innerHTML = `
+    <div style="font-size:18px;color:#4caf50;margin-top:20px;">
+      Данные отправлены ✔<br><br>
       Вы можете закрыть эту страницу.
     </div>
   `;
-}
-    // Отправка email
-    async function sendEmail() {
-        const email = document.getElementById('feedbackEmail').value.trim();
-        if (email && !emailSent && email.includes('@')) {
-            try {
-                await fetch('https://script.google.com/macros/s/AKfycbz_sOV1lOGcgfIy19cWlVMTZK_R37QlmhtWnC50YSsPamNmbmmOetyCnqqj5ssFWBnoxQ/exec', {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        email: email, 
-                        answers: answers,
-                        type: 'feedback_request'
-                    })
-                });
-                emailSent = true;
-                document.getElementById('feedbackEmail').classList.add('sent');
-                console.log('Email отправлен:', email);
-            } catch (e) {
-                console.error('Ошибка отправки email:', e);
-            }
-        }
-    }
 
+  // 🔥 ПОТОМ отправка (без await, чтобы не ломать UI)
+  try {
+    fetch("https://script.google.com/macros/s/ВАШ_ID_SCRIPT/exec", {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch(e) {
+    console.error(e);
+  }
+}
     // Обработчик радио-кнопок
     document.addEventListener('change', (e) => {
         if (e.target.matches('input[type="radio"]') && !testCompleted) {
