@@ -448,20 +448,33 @@
     }
 
     function onNext() {
-        if (testCompleted) return;
-        
-        const sum = calcSum();
-        if (sum === 100) {
-            if (currentQuestion < 11) {
-                currentQuestion++;
-                loadQuestion();
-            } else {
-                showFinishScreen();
-            }
-        } else {
-            alert(`Сумма должна быть равна 100!\nТекущая сумма: ${sum}`);
+    if (testCompleted) return;
+
+    const names = ["A", "B", "C", "D"];
+
+    // проверка: все ли выбраны
+    for (let n of names) {
+        if (!document.querySelector(`input[name="${n}"]:checked`)) {
+            alert("Пожалуйста, заполните все варианты (A, B, C, D)");
+            return;
         }
     }
+
+    const sum = calcSum();
+
+    if (sum !== 100) {
+        alert(`Сумма должна быть 100! Сейчас: ${sum}`);
+        return;
+    }
+
+    // всё ок → дальше
+    if (currentQuestion < 11) {
+        currentQuestion++;
+        loadQuestion();
+    } else {
+        showFinishScreen();
+    }
+}
 
     function prevQuestion() {
         if (currentQuestion > 0 && !testCompleted) {
