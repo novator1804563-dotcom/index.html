@@ -274,40 +274,36 @@ max-width: calc(50% - 4px);
 
 </script>
 <script>
-// функция получения/создания ID пользователя
-function getUserId() {
-  let userId = localStorage.getItem("userId");
-
-  if (!userId) {
-    userId = "ID-" + Date.now() + "-" + Math.floor(Math.random() * 10000);
-    localStorage.setItem("userId", userId);
-  }
-
-  return userId;
-}
-
 function onNext() {
-  const form = document.getElementById('demoForm');
+  // Собираем ответы с текущего блока (радио-кнопки)
+  const names = ["A", "B", "C", "D"];
+  const answers = {};
 
-  if (!form.checkValidity()) {
-    alert('Пожалуйста, заполните все обязательные поля');
-    form.reportValidity();
+  let allAnswered = true;
+
+  names.forEach(n => {
+    const checked = document.querySelector(`input[name="${n}"]:checked`);
+    if (checked) {
+      answers[n] = Number(checked.value);
+    } else {
+      allAnswered = false; // если хотя бы один не выбран, блок не пройдён
+    }
+  });
+
+  if (!allAnswered) {
+    alert("Пожалуйста, проставьте баллы для всех альтернатив (A, B, C, D).");
     return;
   }
 
-  const formData = new FormData(form);
-  const data = Object.fromEntries(formData);
-
-  // получаем userId
+  // Получаем userId
   const userId = getUserId();
 
-// Сохраняем ответы блока 2 в localStorage
-  localStorage.setItem("block2Answers", JSON.stringify(answers)); 
-  
-  // переход к следующему блоку
-  window.location.href = 'блок3.html'; // <-- обязательно правильное имя файла
-}
+  // Сохраняем ответы блока 2 в localStorage
+  localStorage.setItem("block2Answers", JSON.stringify(answers));
 
+  // Переход к следующему блоку
+  window.location.href = 'блок3.html'; // <-- проверь, что имя файла верное
+}
 </script>
   
 </body>
