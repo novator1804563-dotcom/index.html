@@ -502,76 +502,63 @@ display:none;
 </div>
 
 
-<button class="btn-green" onclick="onNextBlock4()">Продолжить</button>
-
 <script>
-const NEXT_BLOCK = "блок5.html";  // следующий блок
-const CURRENT_BLOCK = "block4";    // уникальный ключ для этого блока
-
-function getUserId() {
-  let userId = localStorage.getItem("userId");
-  if (!userId) {
-    userId = "ID-" + Date.now() + "-" + Math.floor(Math.random() * 10000);
-    localStorage.setItem("userId", userId);
-  }
-  return userId;
-}
-
 function startSurvey(){
-  document.getElementById("startPage").style.display = "none";
+  document.getElementById("startPage").style.display="none";
   document.getElementById("survey").classList.remove("hidden");
 }
 
-function onNextBlock4(){
+function checkAnswers(){
   const btn = document.querySelector(".btn-green");
-  
-  const requiredRadios = [
-    "q15","q16","q17","q18","q19","q20","q21","q22","q23","q24",
-    "q25","q26","q27","q28","q29","q30","q31","q32","q33","q34",
-    "q35","q36","q37","q38","q39","q40","q41","q42","q43","q44"
-  ];
 
-  // проверка обязательных
+  // массив имён всех вопросов блока 4
+  const requiredRadios = [];
+  for(let i=15;i<=44;i++){
+    requiredRadios.push("q"+i);
+  }
+
+  // проверка, что все вопросы отвечены
   for(let name of requiredRadios){
-    if(!document.querySelector('input[name="'+name+'"]:checked')){
+    let checked = document.querySelector('input[name="'+name+'"]:checked');
+    if(!checked){
       alert("Пожалуйста, ответьте на все вопросы перед продолжением.");
       return;
     }
   }
 
-  // получаем ID пользователя
-  const userId = getUserId();
+  // ID пользователя
+  const userId = localStorage.getItem("userId");
+  if(!userId){
+    alert("Сначала пройдите первый блок");
+    window.location.href = "блок1.html";
+    return;
+  }
 
-  // собираем ответы
+  // собираем ответы текста а/б
   const answers = requiredRadios.map(name => {
     const el = document.querySelector('input[name="'+name+'"]:checked');
     return el.parentElement.querySelector(".option-text").textContent.trim();
   });
 
-  // сохраняем локально
-  localStorage.setItem(CURRENT_BLOCK, JSON.stringify(answers));
+  // --- СОХРАНЯЕМ ОТВЕТЫ ЛОКАЛЬНО ---
+  let allAnswers = JSON.parse(localStorage.getItem("allAnswers")) || {};
+  allAnswers["Блок 4"] = answers;
+  localStorage.setItem("allAnswers", JSON.stringify(allAnswers));
 
-  // блокируем кнопку и переход
+  // блокируем кнопку
   btn.disabled = true;
-  btn.textContent = "Переходим...";
-  
-  // Отправка в Google Sheets (если нужно)
-  fetch(SCRIPT_URL, {
-    method: "POST",
-    body: JSON.stringify({
-      sheet: "Блок 4",
-      values: [userId, new Date().toLocaleString(), ...answers]
-    }),
-    mode: "no-cors"
-  });
+  btn.textContent = "Сохраняем...";
 
-  // переход
-  setTimeout(() => {
-    window.location.href = NEXT_BLOCK;
-  }, 700);
+  // переход к следующему блоку
+  setTimeout(()=>{
+    btn.textContent = "Переходим...";
+    window.location.href = "блок5.html";
+  },500);
 }
-
 </script>
+
+<!-- кнопка -->
+<button class="btn-green" onclick="checkAnswers()">Продолжить</button>
 
 </body>
 </html>
