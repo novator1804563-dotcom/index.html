@@ -466,8 +466,8 @@ function onNextBlock3(){
 
   const data = { q10, q11, q12, q12a, q13, q14 };
 
-  // сохраняем локально
-  localStorage.setItem(CURRENT_BLOCK, JSON.stringify(data));
+    // Сохраняем ответы блока 3
+  localStorage.setItem("block3Answers", JSON.stringify(answers));
 
   // кнопка блокируется и переход
   btn.disabled = true;
