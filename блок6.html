@@ -505,11 +505,22 @@
     // Финальное завершение теста
 function finishTest(){
   const email = document.getElementById('feedbackEmail').value.trim();
+
+  // Получаем ответы со всех предыдущих блоков из localStorage
+  const block1 = JSON.parse(localStorage.getItem("block1Answers") || "[]");
+  const block2 = JSON.parse(localStorage.getItem("block2Answers") || "[]");
+  const block3 = JSON.parse(localStorage.getItem("block3Answers") || "[]");
+  const block4 = JSON.parse(localStorage.getItem("block4Answers") || "[]");
+  const block5 = JSON.parse(localStorage.getItem("block5Answers") || "[]");
+
+  // Объединяем все ответы с блоком 6
+  const allAnswers = [...block1, ...block2, ...block3, ...block4, ...block5, ...answers];
+
   const payload = {
     timestamp: new Date().toISOString(),
     email: email,
-    answers: answers,
-    sheetName: "Блок 6"
+    answers: allAnswers,
+    sheetName: "Результаты всего теста"
   };
 
   // 🔥 СНАЧАЛА показываем "Спасибо"
@@ -525,7 +536,7 @@ function finishTest(){
 
   // 🔥 ПОТОМ отправка (без await, чтобы не ломать UI)
   try {
-    fetch("https://script.google.com/macros/s/AKfycbyZhYZwe7s1FTSgToyD-tNLdpkYtahw25ULvscuLCqTOiiESmHT54wxILNfTDMNl_RqJw/exec", {
+    fetch("https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbxipZvnJVxNszDh9osXXfI_vQyM3lgavkDa4jXdNE0WIrD1Q23dXd6iZOBckq9uyqnj/exec/exec", {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
@@ -535,12 +546,6 @@ function finishTest(){
     console.error(e);
   }
 }
-    // Обработчик радио-кнопок
-    document.addEventListener('change', (e) => {
-        if (e.target.matches('input[type="radio"]') && !testCompleted) {
-            calcSum();
-        }
-    });
 </script>
 
 </body>
