@@ -307,12 +307,10 @@ function onNext() {
   // (необязательно, но удобно)
   localStorage.setItem('userId', userId);
 
-  // небольшая задержка и переход
-  setTimeout(() => {
-    btn.textContent = 'Переходим...';
-    window.location.href = 'блок3.html';
-  }, 600);
+   // переход к следующему блоку
+  window.location.href = 'блок3.html';
 }
+
 </script>
   
 </body>
