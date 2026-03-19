@@ -492,7 +492,7 @@
             <div class="feedback-box" id="feedbackBox">
                 <div>Если Вы хотите получить обратную связь, пожалуйста укажите Вашу почту:</div>
                 <input type="email" id="feedbackEmail" placeholder="your@email.com">
-                <button type=class="btn-finish" onclick="finishTest()">Завершить</button>
+                <button type="button" class="btn-finish" onclick="finishTest()">Завершить</button>
             </div>
         `;
 
@@ -502,58 +502,51 @@
         emailInput.addEventListener('change', sendEmail);
     }
 
-   
-// Финальное завершение теста (6 блок)
-function finishTest() {
-  const email = document.getElementById('feedbackEmail').value.trim();
+function finishTest() { 
+    const email = document.getElementById('feedbackEmail').value.trim(); 
 
-  // Собираем ответы со всех блоков из localStorage
-  const block1 = JSON.parse(localStorage.getItem("block1Answers") || "[]");
-  const block2 = JSON.parse(localStorage.getItem("block2Answers") || "[]");
-  const block3 = JSON.parse(localStorage.getItem("block3Answers") || "[]");
-  const block4 = JSON.parse(localStorage.getItem("block4Answers") || "[]");
-  const block5 = JSON.parse(localStorage.getItem("block5Answers") || "[]");
-  const block6 = answers; // текущие ответы 6 блока
+    const block1 = JSON.parse(localStorage.getItem("block1Answers") || "{}"); 
+    const block2 = JSON.parse(localStorage.getItem("block2Answers") || "{}"); 
+    const block3 = JSON.parse(localStorage.getItem("block3Answers") || "{}"); 
+    const block4 = JSON.parse(localStorage.getItem("block4Answers") || "{}"); 
+    const block5 = JSON.parse(localStorage.getItem("block5Answers") || "{}"); 
 
-  // Объединяем все ответы
-  const allAnswers = [...block1, ...block2, ...block3, ...block4, ...block5];
-  // Если answers объекта, преобразуем в массив
-  for (let key in block6) {
-    allAnswers.push(block6[key]);
-  }
+    const allAnswers = [];
 
-  // Подготавливаем данные для отправки
-  const payload = {
-    timestamp: new Date().toISOString(),
-    email: email,
-    answers: allAnswers,
-    sheetName: "Лист1"
-  };
-
-  // Показываем финальный экран "Спасибо"
-  document.getElementById('questionTitle').innerHTML = `
-    <div class="finish-screen">
-      Благодарим за участие и Ваш вклад в наше исследование!
-    </div>
-  `;
-  document.getElementById('centerBlock').innerHTML = `
-    <div style="font-size:18px;color:#4caf50;margin-top:20px;">
-      Вы можете закрыть эту страницу.
-    </div>
-  `;
-
-  // Отправка данных в Google Таблицу
-  try {
-    fetch("https://script.google.com/macros/s/AKfycbzRnYsI5jemviU5NJh6ww_ce9P-srrwitueAQKedqUVIlDxPnL45kS-o1ga6cU26r-_/exec", {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+    [block1, block2, block3, block4, block5].forEach(block => {
+        Object.values(block).forEach(val => allAnswers.push(val));
     });
-  } catch(e) {
-    console.error("Ошибка отправки:", e);
-  }
+
+    for (let key in answers) {
+        allAnswers.push(answers[key]);
+    }
+
+    const payload = { 
+        timestamp: new Date().toISOString(), 
+        email: email, 
+        answers: allAnswers, 
+        sheetName: "Лист1" 
+    }; 
+
+    document.getElementById('questionTitle').innerHTML = ` 
+        <div class="finish-screen">Благодарим за участие!</div> 
+    `; 
+
+    document.getElementById('centerBlock').innerHTML = ` 
+        <div style="font-size:18px;color:#4caf50;margin-top:20px;"> 
+            Вы можете закрыть страницу 
+        </div> 
+    `; 
+
+    fetch("https://script.google.com/macros/s/AKfycbzRnYsI5jemviU5NJh6ww_ce9P-srrwitueAQKedqUVIlDxPnL45kS-o1ga6cU26r-_/exec", { 
+        method: 'POST', 
+        mode: 'no-cors', 
+        headers: { 'Content-Type': 'application/json' }, 
+        body: JSON.stringify(payload) 
+    }); 
 }
+   
+
 </script>
 </body>
 </html>
