@@ -128,24 +128,7 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(45, 108, 223, 0.4);
 }
-.btn-green{
-  margin-top:40px;
-  background:#4caf50;
-  color:white;
-  border:none;
-  padding:14px 35px;
-  font-size:16px;
-  border-radius:6px;
-  cursor:pointer;
-}
 
-.btn-green:hover{
-background:#2d6cdf;
-}
-
-.hidden{
-display:none;
-}
 /* Мобильная адаптация */
 @media (max-width: 768px) {
   .survey-box {
@@ -317,6 +300,7 @@ display:none;
 </div>
 
 <script>
+
 function checkAnswers() {
   const btn = document.querySelector(".btn-blue");
 
@@ -330,13 +314,7 @@ function checkAnswers() {
       return;
     }
   }
-// ID пользователя
-  const userId = localStorage.getItem("userId");
-  if(!userId){
-    alert("Сначала пройдите первый блок");
-    window.location.href = "блок1.html";
-    return;
-  }
+
   // Собираем ответы (числа 1–7)
   const answers = requiredRadios.map(name => {
     return document.querySelector('input[name="'+name+'"]:checked').value;
@@ -345,22 +323,20 @@ function checkAnswers() {
   // Сохраняем ответы блока 5 в localStorage
   localStorage.setItem("block5Answers", JSON.stringify(answers));
 
-  // блокируем кнопку
+  // Блокируем кнопку и меняем текст
   btn.disabled = true;
   btn.textContent = "Сохраняем...";
 
-  // переход к следующему блоку
-  setTimeout(()=>{
+  // Переход на следующий блок
+  setTimeout(() => {
     btn.textContent = "Переходим...";
-    window.location.href = "блок5.html";
-  },500);
+    window.location.href = "блок6.html"; 
+  }, 500);
 }
 </script>
 
 <!-- кнопка -->
-<button class="btn-green" onclick="checkAnswers()">Продолжить</button>
-
-</body>
+<button class="btn-blue" onclick="checkAnswers()">Продолжить</button>
 </div>
 
 
