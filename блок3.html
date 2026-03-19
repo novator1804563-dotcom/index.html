@@ -419,42 +419,45 @@ height:22px;
 </button>
 
 <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxzqibRsUBn3yYX3usCMXCvIiNFlm6IAk14jy3-xp41I_BOaT4KcpqFZzZK8uOv056MTA/exec";
+ 
+const NEXT_BLOCK = "блок4.html";  // следующий блок
+const CURRENT_BLOCK = "block3";    // уникальный ключ для этого блока
 
-function startSurvey(){
-document.getElementById("startPage").style.display="none";
-document.getElementById("survey").classList.remove("hidden");
+function getUserId() {
+  let userId = localStorage.getItem("userId");
+  if (!userId) {
+    userId = "ID-" + Date.now() + "-" + Math.floor(Math.random() * 10000);
+    localStorage.setItem("userId", userId);
+  }
+  return userId;
 }
 
-function checkAnswers(){
+function startSurvey(){
+  document.getElementById("startPage").style.display = "none";
+  document.getElementById("survey").classList.remove("hidden");
+}
 
+function onNextBlock3(){
   const btn = document.querySelector("button");
-
+  
+  // проверка обязательных радиокнопок
   const requiredRadios = ["q10","q11","q12","q14"];
-
   for(let name of requiredRadios){
-    let checked = document.querySelector('input[name="'+name+'"]:checked');
-    if(!checked){
+    if(!document.querySelector('input[name="'+name+'"]:checked')){
       alert("Пожалуйста, ответьте на все вопросы перед продолжением.");
       return;
     }
   }
 
-  // 👇 получаем тот же ID
-  const userId = localStorage.getItem("userId");
-
-  // --- собираем ответы ---
-
+  // собираем ответы
   const q10 = document.querySelector('input[name="q10"]:checked').nextElementSibling.nextElementSibling.textContent;
   const q11 = document.querySelector('input[name="q11"]:checked').nextElementSibling.nextElementSibling.textContent;
   const q12 = document.querySelector('input[name="q12"]:checked').nextElementSibling.nextElementSibling.textContent;
   const q14 = document.querySelector('input[name="q14"]:checked').nextElementSibling.nextElementSibling.textContent;
 
-  // чекбоксы 12а
   const q12a = [...document.querySelectorAll('.question:nth-of-type(4) input[type="checkbox"]:checked')]
     .map(el => el.parentElement.textContent.trim());
 
-  // чекбоксы 13
   const q13 = [...document.querySelectorAll('.question:nth-of-type(5) input[type="checkbox"]:checked')]
     .map(el => {
       if (el.nextElementSibling && el.nextElementSibling.tagName === "INPUT") {
@@ -463,44 +466,17 @@ function checkAnswers(){
       return el.parentElement.textContent.trim();
     });
 
-  // --- формируем строку ---
-  const values = [
-    userId,
-    new Date().toLocaleString(),
-    q10,
-    q11,
-    q12,
-    q12a.join("; "),
-    q13.join("; "),
-    q14
-  ];
+  const data = { q10, q11, q12, q12a, q13, q14 };
 
-  // блокируем кнопку
+  // сохраняем локально
+  localStorage.setItem(CURRENT_BLOCK, JSON.stringify(data));
+
+  // кнопка блокируется и переход
   btn.disabled = true;
-  btn.textContent = "Отправка...";
-
-  // отправка
-  fetch(SCRIPT_URL, {
-    method: "POST",
-    body: JSON.stringify({
-      sheet: "Блок 3", // 👈 другой лист
-      values: values
-    }),
-    mode: "no-cors"
-  });
-
-  // переход дальше
+  btn.textContent = "Переходим...";
   setTimeout(() => {
-    btn.textContent = "Переходим...";
-    window.location.href = "блок4.html";
-  }, 600);
-}
-</script>
-<script>
-
-function startSurvey(){
-document.getElementById("startPage").style.display="none";
-document.getElementById("survey").classList.remove("hidden");
+    window.location.href = NEXT_BLOCK;
+  }, 400);
 }
 
 </script>
