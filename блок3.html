@@ -414,7 +414,7 @@ height:22px;
 </div>
 </div>
 
-<button class="btn-start" onclick="onNextBlock3()">Продолжить</button>
+<button class="btn-next" onclick="onNextBlock3()">Продолжить</button>
 
 <script>
  
@@ -467,7 +467,7 @@ function onNextBlock3(){
   const data = { q10, q11, q12, q12a, q13, q14 };
 
     // Сохраняем ответы блока 3
-  localStorage.setItem("block3Answers", JSON.stringify(answers));
+  localStorage.setItem("block3Answers", JSON.stringify(data));
 
   // кнопка блокируется и переход
   btn.disabled = true;
