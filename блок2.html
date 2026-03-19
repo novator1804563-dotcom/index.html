@@ -301,10 +301,9 @@ function onNext() {
   // получаем userId
   const userId = getUserId();
 
-  // сохраняем блок 2
-  localStorage.setItem('block2', JSON.stringify(data));
-  localStorage.setItem('userId', userId);
-
+// Сохраняем ответы блока 2 в localStorage
+  localStorage.setItem("block2Answers", JSON.stringify(answers)); 
+  
   // переход к следующему блоку
   window.location.href = 'блок3.html'; // <-- обязательно правильное имя файла
 }
