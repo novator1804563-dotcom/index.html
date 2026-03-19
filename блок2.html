@@ -303,13 +303,12 @@ function onNext() {
 
   // сохраняем блок 2
   localStorage.setItem('block2', JSON.stringify(data));
-
-  // (необязательно, но удобно)
   localStorage.setItem('userId', userId);
 
-   // переход к следующему блоку
-  window.location.href = 'блок3.html';
+  // переход к следующему блоку
+  window.location.href = 'блок3.html'; // <-- обязательно правильное имя файла
 }
+
 
 </script>
   
