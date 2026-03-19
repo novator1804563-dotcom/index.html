@@ -299,67 +299,37 @@
 </div>
 </div>
 
-<button class="btn-blue" onclick="checkAnswers()">
-Продолжить
-</button>
-
 <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxzqibRsUBn3yYX3usCMXCvIiNFlm6IAk14jy3-xp41I_BOaT4KcpqFZzZK8uOv056MTA/exec";
-function checkAnswers(){
-
+function checkAnswers() {
   const btn = document.querySelector(".btn-blue");
 
+  // Список всех вопросов блока 5
   const requiredRadios = ["q45","q46","q47","q48","q49"];
 
-  // проверка
-  for(let name of requiredRadios){
-    let checked = document.querySelector('input[name="'+name+'"]:checked');
-    if(!checked){
+  // Проверка, что все ответы выбраны
+  for (let name of requiredRadios) {
+    if (!document.querySelector('input[name="'+name+'"]:checked')) {
       alert("Пожалуйста, ответьте на все вопросы перед продолжением.");
       return;
     }
   }
 
-  // ID
-  const userId = localStorage.getItem("userId");
-
-  if (!userId) {
-    alert("Сначала пройдите первый блок");
-    window.location.href = "блок1.html";
-    return;
-  }
-
-  // --- СБОР ОТВЕТОВ (числа 1–7) ---
+  // Собираем ответы (числа 1–7)
   const answers = requiredRadios.map(name => {
     return document.querySelector('input[name="'+name+'"]:checked').value;
   });
 
-  // --- формируем строку ---
-  const values = [
-    userId,
-    new Date().toLocaleString(),
-    ...answers
-  ];
+  // Сохраняем ответы блока 5 в localStorage
+  localStorage.setItem("block5Answers", JSON.stringify(answers));
 
-  // блок кнопки
+  // Блокируем кнопку и меняем текст
   btn.disabled = true;
-  btn.textContent = "Отправка...";
+  btn.textContent = "Переходим...";
 
-  // отправка
-  fetch(SCRIPT_URL, {
-    method: "POST",
-    body: JSON.stringify({
-      sheet: "Блок 5",
-      values: values
-    }),
-    mode: "no-cors"
-  });
-
-  // переход
+  // Переход на следующий блок
   setTimeout(() => {
-    btn.textContent = "Переходим...";
     window.location.href = "блок6.html";
-  }, 600);
+  }, 500);
 }
 </script>
 </div>
