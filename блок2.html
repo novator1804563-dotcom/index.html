@@ -268,7 +268,54 @@ max-width: calc(50% - 4px);
  <div class="center">
 <button type="button" class="btn-next" id="nextBtn" onclick="onNext()">ПРОДОЛЖИТЬ</button>
 </div>
+<script>
+// функция ID
+function getUserId() {
+  let userId = localStorage.getItem("userId");
+
+  if (!userId) {
+    userId = "ID-" + Date.now() + "-" + Math.floor(Math.random() * 10000);
+    localStorage.setItem("userId", userId);
+  }
+
+  return userId;
+}
+
+function onNext() {
+  const form = document.getElementById('demoForm');
+
+  if (!form) {
+    alert("Форма не найдена!");
+    return;
+  }
+
+  const inputs = form.querySelectorAll('input, select, textarea');
+  const answers = {};
+  let allAnswered = true;
+
+  inputs.forEach(input => {
+    if ((input.type === 'radio' || input.type === 'checkbox') && !input.checked) return;
+
+    if ((input.type !== 'radio' && input.type !== 'checkbox') && input.value.trim() === '') {
+      allAnswered = false;
+    }
+
+    answers[input.name] = input.value;
+  });
+
+  if (!allAnswered) {
+    alert("Пожалуйста, заполните все поля.");
+    return;
+  }
+
+  const userId = getUserId();
+
+  localStorage.setItem("block2Answers", JSON.stringify(answers));
+
+  window.location.href = 'блок3.html';
+}
 </script>
+
 <script>
 function onNext() {
   const form = document.getElementById('demoForm'); // убедись, что id формы верный
