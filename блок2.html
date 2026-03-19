@@ -275,32 +275,41 @@ max-width: calc(50% - 4px);
 </script>
 <script>
 function onNext() {
-  const form = document.getElementById('demoForm');
-  const inputs = form.querySelectorAll('input, select, textarea'); // все поля формы
+  const form = document.getElementById('demoForm'); // убедись, что id формы верный
+  if (!form) {
+    alert("Форма не найдена!");
+    return;
+  }
+
+  const inputs = form.querySelectorAll('input, select, textarea');
   const answers = {};
   let allAnswered = true;
 
   inputs.forEach(input => {
-    if ((input.type === 'radio' || input.type === 'checkbox') && !input.checked) return; // пропускаем не выбранные
+    // Для radio/checkbox учитываем только выбранные
+    if ((input.type === 'radio' || input.type === 'checkbox') && !input.checked) return;
+
+    // Проверка на пустые поля для текстовых input/textarea/select
     if ((input.type !== 'radio' && input.type !== 'checkbox') && input.value.trim() === '') {
-      allAnswered = false; // пустое поле
+      allAnswered = false;
     }
+
     answers[input.name] = input.value;
   });
 
   if (!allAnswered) {
-    alert("Пожалуйста, заполните все обязательные поля.");
+    alert("Пожалуйста, заполните все поля.");
     return;
   }
 
-  // Получаем userId
+  // Получаем или создаём userId
   const userId = getUserId();
 
-  // Сохраняем ответы блока 2 в localStorage
+  // Сохраняем ответы блока 2
   localStorage.setItem("block2Answers", JSON.stringify(answers));
 
   // Переход к следующему блоку
-  window.location.href = 'блок3.html'; // <-- убедись, что имя файла правильное
+  window.location.href = 'блок3.html'; // <-- проверь, чтобы имя файла точно совпадало
 }
 
 </script>
