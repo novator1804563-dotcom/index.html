@@ -412,6 +412,11 @@
         });
         container.innerHTML = html;
         
+        // 🔥 отслеживание изменений (клик по вариантам)
+document.querySelectorAll('input[type="radio"]').forEach(input => {
+    input.addEventListener('change', calcSum);
+});
+
         updateProgress();
         calcSum();
         updateBackButton();
@@ -439,13 +444,9 @@
     }
 
     function updateBackButton() {
-        const backBtn = document.getElementById('backBtn');
-        if (currentQuestion === 0) {
-            backBtn.disabled = true;
-        } else {
-            backBtn.disabled = false;
-        }
-    }
+    const backBtn = document.getElementById('backBtn');
+    backBtn.disabled = false; // всегда активна
+}
 
     function onNext() {
     if (testCompleted) return;
@@ -477,11 +478,17 @@
 }
 
     function prevQuestion() {
-        if (currentQuestion > 0 && !testCompleted) {
-            currentQuestion--;
-            loadQuestion();
-        }
+    if (testCompleted) return;
+
+    if (currentQuestion === 0) {
+        // возврат на страницу инструкции
+        document.getElementById("questionsScreen").style.display = "none";
+        document.getElementById("introScreen").style.display = "block";
+    } else {
+        currentQuestion--;
+        loadQuestion();
     }
+}
 
     // Полностью очищенная функция финального экрана
     async function showFinishScreen() {
